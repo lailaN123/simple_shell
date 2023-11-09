@@ -1,143 +1,113 @@
 #include "shell.h"
 
 /**
- * _strlen - returns the length of a string.
- *@s: strinng to check.
- * Return: returns the length of string.
+ * _strlen - returns the length of a string
+ * @s: string to evaluate
+ *
+ * Return: the length of the string
  */
-int _strlen(char *s)
+int _str_len(const char *s)
 {
-	int count = 0;
+	int i = 0;
 
-	while (s[count] != '\0')
+	while (s[i] != '\0')
 	{
-		count++;
+		i++;
 	}
-	return (count);
+	return (i);
 }
 
 /**
- * _strcmp - function that compares two strings.
- * @s1: string 1
- * @s2: string 2
- * Return: a string
+ * _strcmp- compares two strings
+ * @s1: first string to compare
+ * @s2: second string to compare
+ * Return: negative if s1 is less than s2, 0 if they're equal,
+ * more than 0 if s1 is greater than s2
  */
 int _strcmp(char *s1, char *s2)
 {
-
-while (*s1 != '\0')
-{
-	while (*s2 != '\0')
+	while (*s1 == *s2)
 	{
-		if (*s1 != *s2)
+		if (*s1 == '\0')
 		{
-			return (*s1 - *s2);
+			return (0);
 		}
-		else
-		{
-			s1++;
-			s2++;
-		}
+		s1++;
+		s2++;
 	}
-}
-return (0);
+	return (*s1 - *s2);
 }
 
 /**
- * *_strcat - concatenates two strings
+ * _strcpy - Copies a string
+ * @destination: The destination string
+ * @source: The source string
+ * Return: A pointer to the destination string
+ */
+
+char *_strcpy(char *destination, char *source)
+{
+	int i = 0;
+
+	if (destination == source || source == NULL)
+		return (destination);
+
+	while (source[i])
+	{
+		destination[i] = source[i];
+		i++;
+	}
+
+	destination[i] = '\0';
+	return (destination);
+}
+
+/**
+ * _strdup - Duplicates the given string
+ * @str: The string to duplicate
+ * Return: A pointer to the copied string (success),
+ * NULL if failed or if str is NULL
+ */
+char *_strdup(char *str)
+{
+	char *duplicate;
+	unsigned int i = 0, length = 0;
+
+	if (str == NULL)
+		return (NULL);
+
+	while (str[length])
+		length++;
+
+	duplicate = malloc(sizeof(char) * (length + 1));
+
+	if (duplicate == NULL)
+		return (NULL);
+
+	while ((duplicate[i] = str[i]) != '\0')
+		i++;
+
+	return (duplicate);
+}
+
+/**
+ * _strcat - concatenates two strings
  * @dest: string to append to
  * @src: string to add
- *
- * Return: a pointer to the resulting string dest
+ * Return: a pointer to the resulting string
  */
 char *_strcat(char *dest, char *src)
 {
-	int i;
-	int count1 = 0;
-	int count2 = 0;
-	int count3;
-	char *orig1 = src;
-	char *orig2 = dest;
+	int i = 0, j = 0;
 
-	while (*dest != '\0')
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
 	{
-		dest++;
-		count2++;
+		dest[i] = src[j];
+		j++;
+		i++;
 	}
-
-	while (*src != '\0')
-	{
-		src++;
-		count1++;
-	}
-	count3 = count1 + count2;
-	src = orig1;
-	for (i = count3 - count1; i <= count3; i++)
-	{
-		*dest = *src;
-		src++;
-		dest++;
-	}
-	dest = orig2;
+	dest[i] = '\0';
 	return (dest);
-}
-
-/**
- * *_strcpy - copies the string pointed to by src
- * @destination: The destination string
- * @source: The source string
- * Return: the pointer to dest
- */
-char *_strcpy(char *dest, char *src)
-{
-	int count = 0;
-	int i;
-	char *orig = src;
-
-	while (*src != '\0')
-	{
-		src++;
-		count++;
-	}
-	src = orig;
-
-	for (i = 0; i <= count; i++)
-	{
-		*dest = *src;
-		src++;
-		dest++;
-	}
-	dest = orig;
-	return (dest);
-}
-
-/**
- * _strdup - duplicate a string
- * @str: string
- * Return: duplicated string or Null if failed
- */
-char *_strdup(const char *str)
-{
-	unsigned int len, i;
-	char *dup;
-
-	if (str == NULL)
-        {
-                return (NULL);
-        }
-
-	while (str[len])
-		len++;
-
-	dup = malloc(sizeof(char) * (len + 1));
-	 if (!dup)
-        {
-                return (NULL);
-        }
-
-	for (i = 0; i <= len; i++)
-	{
-		dup[i] = str[i];
-	}
-	return (dup);
 }

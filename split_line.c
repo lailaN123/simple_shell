@@ -28,7 +28,8 @@ char **split_line(char *line)
 	while(token != NULL)
 	{
 		i++;
-		tokens = realloc(tokens, i * sizeof(char *));
+		tokens = malloc(sizeof(char *) * i);
+
 		if (tokens == NULL)
 		{
 			free(line);
@@ -39,7 +40,7 @@ char **split_line(char *line)
 		tokens[i - 1] = _strdup(token);
 		token = strtok(NULL, " \t\n");
 	}
-	tokens[i - 1] = NULL;
+	tokens[i] = NULL;
 	free(line), line = NULL;
 	return (tokens);
 }
